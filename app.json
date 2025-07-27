@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "medics",
-    "slug": "medics",
+    "name": "eventpilot",
+    "slug": "eventpilot",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "medics",
+    "scheme": "eventpilot",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
