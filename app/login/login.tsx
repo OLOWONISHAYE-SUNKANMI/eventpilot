@@ -1,76 +1,138 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import React from 'react';
-import { Dimensions, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { Alert, Dimensions, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
-const {width, height} = Dimensions.get('window');
+// ✅ Firebase Imports
+import { signInWithApple } from '../../firebase/appleAuth';
+import { loginWithEmail } from '../../firebase/authService';
+import { useGoogleAuth } from '../../firebase/googleAuth';
 
+const { width, height } = Dimensions.get('window');
 
+export default function Login() {
+  const router = useRouter();
 
+  // ✅ State for form inputs
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
-export default function login() {
+  // ✅ Google Auth Hook
+  const { promptAsync: googleSignIn } = useGoogleAuth();
 
-    const router = useRouter();
-
-    const handleSignupButton = () => {
-        // Navigate to signup screen
-        router.replace("/signup/signup");
+  // ✅ Handle Email/Password Login
+  const handleEmailLogin = async () => {
+    if (!email || !password) {
+      Alert.alert('Missing Fields', 'Please enter email and password');
+      return;
     }
+
+    try {
+      const user = await loginWithEmail(email, password);
+      console.log('✅ Logged in:', user.email);
+      Alert.alert('Welcome Back', `You are logged in as ${user.email}`);
+      router.replace('/homepage'); // ✅ Navigate after login
+    } catch (err: any) {
+      Alert.alert('Login Error', err.message);
+    }
+  };
+
+  // ✅ Handle Google Login
+  const handleGoogleLogin = async () => {
+    googleSignIn(); // ✅ Triggers Google login flow
+  };
+
+  // ✅ Handle Apple Login (iOS only)
+  const handleAppleLogin = async () => {
+    try {
+      await signInWithApple();
+      router.replace('/homepage');
+    } catch (err) {
+      console.log('❌ Apple Sign-In error:', err);
+    }
+  };
+
+  // ✅ Handle Signup Navigation
+  const handleSignupButton = () => {
+    router.replace('/signup/signup');
+  };
 
   return (
     <ScrollView style={styles.container}>
-        <View>
-            <View style={styles.headerContent}>
-                <View style={styles.iconContainer}>
-                    <Ionicons name="calendar" size={20} color="white" />
-                </View>
-                <Text style={styles.headerText}>Welcome Back</Text>
-                <Text style={styles.headerSubtitle}>Log in to manage your reminders and stay on track.</Text>
-            </View>
-
-            <View style={styles.formContainer}>
-                <TextInput 
-                style={styles.inputEmail} 
-                placeholderTextColor="#C4C4C4"
-                placeholder='Enter your email address'/>
-                
-                <TextInput style={styles.inputPassword} 
-                 placeholderTextColor="#C4C4C4"
-                placeholder='Enter your password'/>
-            </View>
-
-            <View style={styles.formContainer}>
-                <TouchableOpacity style={styles.forgetPasswordButton}>
-                    <Text style={styles.forgetPasswordText}>Forget Password?</Text>
-                </TouchableOpacity>
-            </View>
-
-            <View style={styles.formContainer}>
-                <TouchableOpacity style={styles.loginButton}>
-                    <Text style={styles.loginButtonText}>Sign in</Text>
-                </TouchableOpacity>
-            </View>
-
-            
-            <View style={styles.formContainer}>
-                <Text style={styles.textContent}>or login with</Text>
-                 <TouchableOpacity style={styles.googleButton}>
-                          <Ionicons style={styles.buttonIcon} name="logo-google" size={24} color="white" />
-                          <Text style={styles.buttonText}>Continue with Google</Text>
-                </TouchableOpacity>
-
-                  <TouchableOpacity style={styles.appleButton} >
-                          <Ionicons style={styles.buttonIcon} name="logo-apple" size={24} color="white" />
-                          <Text style={styles.buttonText}>Continue with Apple</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.signupButton} onPress={handleSignupButton}>
-                    <Text style={styles.signupButtonText}>Don't have an account? Sign up</Text>
-                </TouchableOpacity>
-            </View>
+      <View>
+        {/* HEADER */}
+        <View style={styles.headerContent}>
+          <View style={styles.iconContainer}>
+            <Ionicons name="calendar" size={20} color="white" />
+          </View>
+          <Text style={styles.headerText}>Welcome Back</Text>
+          <Text style={styles.headerSubtitle}>
+            Log in to manage your reminders and stay on track.
+          </Text>
         </View>
+
+        {/* FORM */}
+        <View style={styles.formContainer}>
+          <TextInput
+            style={styles.inputEmail}
+            placeholderTextColor="#C4C4C4"
+            placeholder="Enter your email address"
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+
+          <TextInput
+            style={styles.inputPassword}
+            placeholderTextColor="#C4C4C4"
+            placeholder="Enter your password"
+            secureTextEntry={true}
+            value={password}
+            onChangeText={setPassword}
+          />
+        </View>
+
+        {/* Forgot Password */}
+        <View style={styles.formContainer}>
+          <TouchableOpacity style={styles.forgetPasswordButton}>
+            <Text style={styles.forgetPasswordText}>Forget Password?</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* EMAIL LOGIN BUTTON */}
+        <View style={styles.formContainer}>
+          <TouchableOpacity style={styles.loginButton} onPress={handleEmailLogin}>
+            <Text style={styles.loginButtonText}>Sign in</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* SOCIAL LOGINS */}
+        <View style={styles.formContainer}>
+          <Text style={styles.textContent}>or login with</Text>
+
+          {/* Google Login */}
+          <TouchableOpacity style={styles.googleButton} onPress={handleGoogleLogin}>
+            <Ionicons style={styles.buttonIcon} name="logo-google" size={24} color="white" />
+            <Text style={styles.buttonText}>Continue with Google</Text>
+          </TouchableOpacity>
+
+          {/* Apple Login (iOS only) */}
+          {Platform.OS === 'ios' && (
+            <TouchableOpacity style={styles.appleButton} onPress={handleAppleLogin}>
+              <Ionicons style={styles.buttonIcon} name="logo-apple" size={24} color="white" />
+              <Text style={styles.buttonText}>Continue with Apple</Text>
+            </TouchableOpacity>
+          )}
+
+          {/* Signup Navigation */}
+          <TouchableOpacity style={styles.signupButton} onPress={handleSignupButton}>
+            <Text style={styles.signupButtonText}>Don't have an account? Sign up</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </ScrollView>
-  )
+  );
 }
 
 const styles = StyleSheet.create ({
