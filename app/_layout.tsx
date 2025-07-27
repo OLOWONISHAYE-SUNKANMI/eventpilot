@@ -1,6 +1,5 @@
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { Platform } from "react-native";
 
 export default function Layout() {
   return (
@@ -22,31 +21,15 @@ export default function Layout() {
           }}
         />
         <Stack.Screen
-          name="medications/add"
+          name="screens/onboarding"
           options={{
             headerShown: false,
             headerBackTitle: "",
             title: "",
           }}
         />
-        <Stack.Screen
-          name="refills/index"
-          options={{
-            headerShown: false,
-            headerBackTitle: "",
-            title: "",
-          }}
-        />
-        <Stack.Screen
-          name="calendar/index"
-          options={{
-            headerShown: false,
-            headerBackTitle: "",
-            title: "",
-          }}
-        />
-        <Stack.Screen
-          name="history/index"
+         <Stack.Screen
+          name="login/login"
           options={{
             headerShown: false,
             headerBackTitle: "",

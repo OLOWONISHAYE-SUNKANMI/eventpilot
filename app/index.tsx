@@ -25,7 +25,7 @@ export default function SplashScreen() {
     ]).start();
 
     const timer = setTimeout(() => {
-      router.replace("/auth");
+      router.replace("/screens/onboarding");
     }, 2000);
 
     return () => clearTimeout(timer);

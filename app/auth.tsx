@@ -1,211 +1,142 @@
-import { Ionicons } from "@expo/vector-icons";
-import { LinearGradient } from "expo-linear-gradient";
-import * as LocalAuthentication from "expo-local-authentication";
-import { useRouter } from "expo-router";
-import { useEffect, useState } from "react";
-import {
-    Dimensions,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
-} from "react-native";
+import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import React from 'react';
+import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const { width } = Dimensions.get("window");
+const {width, height} = Dimensions.get('window'); 
 
-export default function AuthScreen() {
+export default function auth() {
+
   const router = useRouter();
-  const [isAuthenticating, setIsAuthenticating] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [hasBiometrics, setHasBiometrics] = useState(false);
 
-  useEffect(() => {
-    checkBiometrics();
-  }, []);
+  const handleEmailLogin = () => {
+    // Handle email login logic here
+    router.replace("/login/login")
+  }
+  const handleGoogleLogin = () => {
+    // Handle Google login logic here
 
-  const checkBiometrics = async () => {
-    const hasHardware = await LocalAuthentication.hasHardwareAsync();
-    const isEnrolled = await LocalAuthentication.isEnrolledAsync();
-    setHasBiometrics(hasHardware && isEnrolled);
-  };
+  }
+  const handleAppleLogin = () => {
+    // Handle Apple login logic here
+  }
 
-  const authenticate = async () => {
-    try {
-      setIsAuthenticating(true);
-      setError(null);
-
-      // Check if device has biometric hardware
-      const hasHardware = await LocalAuthentication.hasHardwareAsync();
-      const supportedTypes =
-        await LocalAuthentication.supportedAuthenticationTypesAsync();
-      const hasBiometrics = await LocalAuthentication.isEnrolledAsync();
-
-      const auth = await LocalAuthentication.authenticateAsync({
-        promptMessage:
-          hasHardware && hasBiometrics
-            ? "Use Face ID or Touch ID"
-            : "Enter your PIN to access MedRemind",
-        fallbackLabel: "Use PIN",
-        cancelLabel: "Cancel",
-        disableDeviceFallback: false,
-      });
-
-      if (auth.success) {
-        router.replace("/home");
-      } else {
-        setError("Authentication failed. Please try again.");
-      }
-    } catch (err) {
-      setError("An error occurred. Please try again.");
-      console.error(err);
-    } finally {
-      setIsAuthenticating(false);
-    }
-  };
 
   return (
-    <LinearGradient colors={["#634BFF", "#2200FF"]} style={styles.container}>
-      <View style={styles.content}>
-        <View style={styles.iconContainer}>
-          <Ionicons name="calendar" size={60} color="white" />
-        </View>
-
-        <Text style={styles.title}>EventPilot</Text>
-        <Text style={styles.subtitle}>Let’s Get You Ready for Your Next Event</Text>
-
-        <View style={styles.card}>
-          <Text style={styles.welcomeText}>Welcome Back!</Text>
-          <Text style={styles.instructionText}>
-            {hasBiometrics
-              ? "Use Face ID/Touch ID or PIN to access your medications"
-              : "Enter your PIN to access your medications"}
-          </Text>
-
-          <TouchableOpacity
-            style={[styles.button, isAuthenticating && styles.buttonDisabled]}
-            onPress={authenticate}
-            disabled={isAuthenticating}
-          >
-            <Ionicons
-              name={hasBiometrics ? "finger-print-outline" : "keypad-outline"}
-              size={24}
-              color="white"
-              style={styles.buttonIcon}
-            />
-            <Text style={styles.buttonText}>
-              {isAuthenticating
-                ? "Verifying..."
-                : hasBiometrics
-                ? "Authenticate"
-                : "Enter PIN"}
-            </Text>
-          </TouchableOpacity>
-
-          {error && (
-            <View style={styles.errorContainer}>
-              <Ionicons name="alert-circle" size={20} color="#f44336" />
-              <Text style={styles.errorText}>{error}</Text>
-            </View>
-          )}
-        </View>
+    <View>
+      <View>
+          <Image style={styles.images} source={require('./images/background.png')} />
       </View>
-    </LinearGradient>
-  );
+
+    <ScrollView>
+      <View style={styles.content}>
+        <Text style={styles.title}>Let's Get Started</Text>
+        <Text style={styles.subtitle}>Sign up or login to manage reminders and stay on track</Text>
+      </View>
+
+      <View style={styles.content}>
+
+        <TouchableOpacity 
+        onPress={handleEmailLogin}
+        style={styles.emailButton}>
+          <Ionicons name="mail" size={24} color="white" />
+          <Text style={styles.buttonText}>Continue with Email</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.googleButton}>
+          <Ionicons name="logo-google" size={24} color="white" />
+          <Text style={styles.buttonText}>Continue with Google</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.appleButton}>
+          <Ionicons name="logo-apple" size={24} color="white" />
+          <Text style={styles.buttonText}>Continue with Apple</Text>
+        </TouchableOpacity>
+
+      </View>
+
+      <View style={styles.content}>
+        <Text style={styles.textTitle}>By Signing up or logging in, I accept the EventPilot</Text>
+        <Text style={styles.textSubtitle}>Terms of Service and Privacy Policy</Text>
+      </View>
+    </ScrollView>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+
+  images: {
+    width: width * 1,
+    height: height * 0.4,
+    resizeMode: 'stretch',
   },
   content: {
-    flex: 1,
-    padding: 20,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  iconContainer: {
-    width: 120,
-    height: 120,
-    backgroundColor: "rgba(255, 255, 255, 0.2)",
-    borderRadius: 60,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20
   },
   title: {
-    fontSize: 36,
-    fontWeight: "bold",
-    color: "white",
-    marginBottom: 10,
-    textShadowColor: "rgba(0, 0, 0, 0.2)",
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 3,
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#000',
+    marginTop: 20,
   },
   subtitle: {
-    fontSize: 18,
-    color: "rgba(255, 255, 255, 0.9)",
-    marginBottom: 40,
-    textAlign: "center",
-  },
-  card: {
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 30,
-    width: width - 40,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  welcomeText: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#333",
-    marginBottom: 10,
-  },
-  instructionText: {
     fontSize: 16,
-    color: "#666",
-    textAlign: "center",
-    marginBottom: 30,
+    color: '#C4C4C4',
+    padding: 10,
+    textAlign: 'center',
   },
-  button: {
-    backgroundColor: "#2200FF",
+  emailButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#2200FF',   
+    paddingLeft: 70,
+    paddingRight: 100,
     paddingVertical: 15,
-    paddingHorizontal: 30,
-    borderRadius: 12,
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    borderRadius: 10,
   },
-  buttonDisabled: {
-    opacity: 0.7,
+   googleButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#CD7B00',   
+    marginTop: 20,
+    paddingLeft: 65,
+    paddingRight: 100,
+    paddingVertical: 15,
+    borderRadius: 10,
+  },
+   appleButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#10015A',   
+    marginTop: 20,
+    paddingLeft: 65,
+    paddingRight: 100,
+    paddingVertical: 15,
+    borderRadius: 10,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    marginLeft: 20,
   },
   buttonIcon: {
     marginRight: 10,
   },
-  buttonText: {
-    color: "white",
-    fontSize: 16,
-    fontWeight: "600",
-  },
-  errorContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 20,
-    padding: 10,
-    backgroundColor: "#ffebee",
-    borderRadius: 8,
-  },
-  errorText: {
-    color: "#f44336",
-    marginLeft: 8,
+  textTitle: {
     fontSize: 14,
+    color: '#C4C4C4',
+    textAlign: 'center',
+    marginTop: 20,
+  },
+  textSubtitle: {
+    fontSize: 14,
+    color: '#2200FF',
+    textAlign: 'center',
   },
 });
