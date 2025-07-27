@@ -16,6 +16,7 @@ export default function Login() {
   // ✅ State for form inputs
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [showPassword, setShowPassword] = useState(false); // 👈 Add state for password visibility
 
   // ✅ Google Auth Hook
   const { promptAsync: googleSignIn } = useGoogleAuth();
@@ -83,14 +84,31 @@ export default function Login() {
             autoCapitalize="none"
           />
 
-          <TextInput
-            style={styles.inputPassword}
-            placeholderTextColor="#C4C4C4"
-            placeholder="Enter your password"
-            secureTextEntry={true}
-            value={password}
-            onChangeText={setPassword}
-          />
+          <View style={{ position: 'relative' }}>
+            <TextInput
+              style={styles.inputPassword}
+              placeholderTextColor="#C4C4C4"
+              placeholder="Enter your password"
+              secureTextEntry={!showPassword}
+              value={password}
+              onChangeText={setPassword}
+            />
+            <TouchableOpacity
+              style={{
+                position: 'absolute',
+                right: 20,
+                top: 25,
+              }}
+              onPress={() => setShowPassword(!showPassword)}
+            >
+              <Ionicons
+                name={showPassword ? 'eye-off' : 'eye'}
+                size={24}
+                color="#2200FF"
+                paddingTop={5}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
 
         {/* Forgot Password */}

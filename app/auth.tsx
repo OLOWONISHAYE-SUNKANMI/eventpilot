@@ -3,9 +3,16 @@ import { useRouter } from 'expo-router';
 import React from 'react';
 import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+// ✅ Firebase Imports
+import { signInWithApple } from './../firebase/appleAuth';
+import { useGoogleAuth } from './../firebase/googleAuth';
+
 const {width, height} = Dimensions.get('window'); 
 
 export default function auth() {
+
+   // ✅ Google Auth Hook
+    const { promptAsync: googleSignIn } = useGoogleAuth();
 
   const router = useRouter();
 
@@ -15,10 +22,17 @@ export default function auth() {
   }
   const handleGoogleLogin = () => {
     // Handle Google login logic here
+    googleSignIn(); // ✅ Triggers Google login flow
 
   }
-  const handleAppleLogin = () => {
+  const handleAppleLogin = async () => {
     // Handle Apple login logic here
+     try {
+          await signInWithApple();
+          router.replace('/homepage');
+        } catch (err) {
+          console.log('❌ Apple Sign-In error:', err);
+        }
   }
 
 
@@ -43,12 +57,15 @@ export default function auth() {
           <Text style={styles.buttonText}>Continue with Email</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.googleButton}>
+        <TouchableOpacity 
+        onPress={handleGoogleLogin}
+        style={styles.googleButton}>
           <Ionicons name="logo-google" size={24} color="white" />
           <Text style={styles.buttonText}>Continue with Google</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.appleButton}>
+        <TouchableOpacity style={styles.appleButton} 
+        onPress={handleAppleLogin}>
           <Ionicons name="logo-apple" size={24} color="white" />
           <Text style={styles.buttonText}>Continue with Apple</Text>
         </TouchableOpacity>
