@@ -46,21 +46,16 @@ export default function login() {
                 secureTextEntry={true} />
             </View>
 
-            <View style={styles.formContainer}>
-                <TouchableOpacity style={styles.forgetPasswordButton}>
-                    <Text style={styles.forgetPasswordText}>Forget Password?</Text>
-                </TouchableOpacity>
-            </View>
 
             <View style={styles.formContainer}>
                 <TouchableOpacity style={styles.loginButton}>
-                    <Text style={styles.loginButtonText}>Sign in</Text>
+                    <Text style={styles.loginButtonText}>Sign up</Text>
                 </TouchableOpacity>
             </View>
 
             
             <View style={styles.formContainer}>
-                <Text style={styles.textContent}>or login with</Text>
+                <Text style={styles.textContent}>or sign up with </Text>
                  <TouchableOpacity style={styles.googleButton}>
                           <Ionicons style={styles.buttonIcon} name="logo-google" size={24} color="white" />
                           <Text style={styles.buttonText}>Continue with Google</Text>
@@ -137,15 +132,6 @@ const styles = StyleSheet.create ({
         padding: 20,
         borderRadius: 10,
         marginBottom: 15,
-    },
-    forgetPasswordButton: {
-        alignItems: 'flex-end',
-        marginBottom: 20,
-        color: '#2200FF',
-    },
-    forgetPasswordText: {
-        color: '#2200FF',
-        fontSize: 16,
     },
     loginButton: {
         flexDirection: 'row',
