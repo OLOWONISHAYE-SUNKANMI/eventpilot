@@ -26,25 +26,67 @@ export default function Login() {
                 </Text>
             </View>
 
-                    <View>
-                        <TextInput 
+            <View style={styles.inputContainer}>
+                        <TextInput style={{ 
+                        width: width - 320, 
+                        height: 70, 
+                        backgroundColor: '#C4C4C4',  
+                        borderRadius: 8, 
+                        paddingHorizontal: 10,
+                        marginTop: 20,
+                        textAlign: 'center',
+                        fontSize: 24,
+                        fontWeight: 'bold',
+                    }}
                                                        
                         />
-                        <TextInput
+                        <TextInput style={{ 
+                        width: width - 320, 
+                        height: 70, 
+                        backgroundColor: '#C4C4C4',  
+                        borderRadius: 8, 
+                        paddingHorizontal: 10,
+                        marginTop: 20,
+                        textAlign: 'center',
+                        fontSize: 24,
+                        fontWeight: 'bold',
+                    }}
                         />
-                        <TextInput
+                        <TextInput style={{ width: width - 320,
+                        height: 70,
+                        backgroundColor: '#C4C4C4',  
+                        borderRadius: 8, 
+                        paddingHorizontal: 10,
+                        marginTop: 20,
+                        textAlign: 'center',
+                        fontSize: 24,
+                        fontWeight: 'bold',
+
+                            
+                    }}
                         />
-                        <TextInput
+                        <TextInput style={{ width: width - 320, 
+                        height: 70, 
+                        backgroundColor: '#C4C4C4',  
+                        borderRadius: 8, 
+                        paddingHorizontal: 10,
+                        marginTop: 20, 
+                        textAlign: 'center',
+                        fontSize: 24,
+                        fontWeight: 'bold'
+                    }}
                         />
+            </View>
+
+                    <View style={styles.headerSubtitle}>
+                        <Text style={styles.headerCodeText}>Didn't receive the code?</Text>
+                        <TouchableOpacity style={styles.resendButton}>
+                                <Text style={styles.resendButtonText}>Resend code</Text>    
+                        </TouchableOpacity>
                     </View>
 
-                    <View>
-                        <Text>Didn't receive the code?</Text>
-                        <Text>Resend Code</Text>
-                    </View>
-
-                    <TouchableOpacity>
-                        <Text>Verify</Text>
+                    <TouchableOpacity style={styles.verifyButton}>
+                        <Text style={styles.verifyButtonText}>Verify</Text>
                     </TouchableOpacity>
         </View>
     </ScrollView>
@@ -80,6 +122,8 @@ const styles = StyleSheet.create ({
         marginTop: 20,
     },
     headerSubtitle: {
+        alignItems: 'center',
+        justifyContent: 'center',
         fontSize: 16,
         color: '#C4C4C4',
         padding: 10,
@@ -91,4 +135,38 @@ const styles = StyleSheet.create ({
         padding: 5,
         textAlign: 'center',
     },
+    inputContainer: {
+        marginTop: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        marginBottom: 20,
+    },
+    headerCodeText: {
+        fontSize: 16,
+        color: '#C4C4C4',
+        padding: 10,
+        textAlign: 'center',
+    },
+    resendButton: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 20,
+    },
+    resendButtonText: {
+        color: '#2200FF',
+        fontSize: 16,
+    },
+    verifyButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#2200FF',   
+        paddingVertical: 20,
+        borderRadius: 10,
+    },
+    verifyButtonText: {
+        color: 'white',
+        fontSize: 16,
+    }
 })
