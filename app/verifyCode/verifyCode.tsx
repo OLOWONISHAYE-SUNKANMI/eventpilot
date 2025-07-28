@@ -31,7 +31,6 @@ export default function Login() {
   const handleVerify = () => {
     const enteredCode = code.join('');
     if (enteredCode === generatedCode) {
-      Alert.alert('Success', 'Verification code is correct!');
       router.replace("/homepage"); // Navigate to next screen if needed
     } else {
       Alert.alert('Invalid Code', 'Please enter the correct verification code.');
