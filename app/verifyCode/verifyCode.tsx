@@ -1,14 +1,42 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import React from 'react';
-import { Dimensions, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-
+import React, { useRef, useState } from 'react';
+import { Alert, Dimensions, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
 export default function Login() {
   const router = useRouter();
 
+  const [code, setCode] = useState(['', '', '', '']);
+  const inputRefs = useRef<Array<TextInput | null>>([]);
+
+  const generatedCode = '1234'; // Replace this later with actual backend logic
+
+  const handleChange = (text: string, index: number) => {
+    if (/^\d$/.test(text)) {
+      const newCode = [...code];
+      newCode[index] = text;
+      setCode(newCode);
+      if (index < 3 && inputRefs.current[index + 1]) {
+        inputRefs.current[index + 1]?.focus();
+      }
+    } else if (text === '') {
+      const newCode = [...code];
+      newCode[index] = '';
+      setCode(newCode);
+    }
+  };
+
+  const handleVerify = () => {
+    const enteredCode = code.join('');
+    if (enteredCode === generatedCode) {
+      Alert.alert('Success', 'Verification code is correct!');
+      router.replace("/homepage"); // Navigate to next screen if needed
+    } else {
+      Alert.alert('Invalid Code', 'Please enter the correct verification code.');
+    }
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -27,67 +55,39 @@ export default function Login() {
             </View>
 
             <View style={styles.inputContainer}>
-                        <TextInput style={{ 
-                        width: width - 320, 
-                        height: 70, 
-                        backgroundColor: '#C4C4C4',  
-                        borderRadius: 8, 
-                        paddingHorizontal: 10,
-                        marginTop: 20,
-                        textAlign: 'center',
-                        fontSize: 24,
-                        fontWeight: 'bold',
-                    }}
-                                                       
-                        />
-                        <TextInput style={{ 
-                        width: width - 320, 
-                        height: 70, 
-                        backgroundColor: '#C4C4C4',  
-                        borderRadius: 8, 
-                        paddingHorizontal: 10,
-                        marginTop: 20,
-                        textAlign: 'center',
-                        fontSize: 24,
-                        fontWeight: 'bold',
-                    }}
-                        />
-                        <TextInput style={{ width: width - 320,
-                        height: 70,
-                        backgroundColor: '#C4C4C4',  
-                        borderRadius: 8, 
-                        paddingHorizontal: 10,
-                        marginTop: 20,
-                        textAlign: 'center',
-                        fontSize: 24,
-                        fontWeight: 'bold',
-
-                            
-                    }}
-                        />
-                        <TextInput style={{ width: width - 320, 
-                        height: 70, 
-                        backgroundColor: '#C4C4C4',  
-                        borderRadius: 8, 
-                        paddingHorizontal: 10,
-                        marginTop: 20, 
-                        textAlign: 'center',
-                        fontSize: 24,
-                        fontWeight: 'bold'
-                    }}
-                        />
+              {code.map((digit, index) => (
+                <TextInput
+                  key={index}
+                  ref={ref => { inputRefs.current[index] = ref; }}
+                  style={{ 
+                    width: width - 320, 
+                    height: 70, 
+                    backgroundColor: '#C4C4C4',  
+                    borderRadius: 8, 
+                    paddingHorizontal: 10,
+                    marginTop: 20,
+                    textAlign: 'center',
+                    fontSize: 24,
+                    fontWeight: 'bold',
+                  }}
+                  keyboardType='number-pad'
+                  maxLength={1}
+                  value={digit}
+                  onChangeText={(text) => handleChange(text, index)}
+                />
+              ))}
             </View>
 
-                    <View style={styles.headerSubtitle}>
-                        <Text style={styles.headerCodeText}>Didn't receive the code?</Text>
-                        <TouchableOpacity style={styles.resendButton}>
-                                <Text style={styles.resendButtonText}>Resend code</Text>    
-                        </TouchableOpacity>
-                    </View>
+            <View style={styles.headerSubtitle}>
+                <Text style={styles.headerCodeText}>Didn't receive the code?</Text>
+                <TouchableOpacity style={styles.resendButton}>
+                        <Text style={styles.resendButtonText}>Resend code</Text>    
+                </TouchableOpacity>
+            </View>
 
-                    <TouchableOpacity style={styles.verifyButton}>
-                        <Text style={styles.verifyButtonText}>Verify</Text>
-                    </TouchableOpacity>
+            <TouchableOpacity style={styles.verifyButton} onPress={handleVerify}>
+                <Text style={styles.verifyButtonText}>Verify</Text>
+            </TouchableOpacity>
         </View>
     </ScrollView>
   );
