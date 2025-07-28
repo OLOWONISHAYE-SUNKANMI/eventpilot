@@ -31,8 +31,7 @@ export default function Login() {
     try {
       const user = await registerWithEmail(email, password);
       console.log('✅ Signed up:', user.email);
-      Alert.alert('Success', `Welcome ${user.email}`);
-      router.replace('/homepage'); // ✅ Navigate after signup
+      router.replace('/verifyCode/verifyCode'); // ✅ Navigate after signup
     } catch (err: any) {
       Alert.alert('Signup Error', err.message);
     }
@@ -47,7 +46,7 @@ export default function Login() {
   const handleAppleLogin = async () => {
     try {
       await signInWithApple();
-      router.replace('/homepage');
+      router.replace('/homepage'); // ✅ Navigate after Apple login
     } catch (err) {
       console.log('❌ Apple Sign-In error:', err);
     }

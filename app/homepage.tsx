@@ -23,4 +23,5 @@ const styles = StyleSheet.create({
     height: height * 0.5,
     resizeMode: 'stretch',
   },
+  
 })
