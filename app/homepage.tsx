@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { Dimensions, Image, ImageBackground, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
@@ -52,7 +53,7 @@ export default function homepage() {
           <View style={styles.imageBackgroundContainer}>
             <ImageBackground
                source={require('./images/event_background.png')}
-              style={{ width: '100%', height: 170, borderRadius: 20,  }}
+              style={{ width: '100%', height: 180, borderRadius: 20,  }}
             >
               <View style={styles.imageBackgroundTextContainer}>
                 <Text style={styles.imageBackgroundText}>Annual General Meeting</Text> 
@@ -64,12 +65,90 @@ export default function homepage() {
             </ImageBackground>
           </View>
 
-            <View>
-              <Text>Trending</Text>
-              <View>
-              
+            <View style={styles.trendingContainer}>
+              <Text style={styles.trendingText}>Trending</Text>
+              <View style={styles.trendingEventContainer}>
+                  <View>
+                      <ImageBackground
+                        source={require('./images/img_group.png')}
+                        style={{ width: '75%', height: 180, borderRadius: 20,  }}
+                      >
+                          <View>
+                              <Text>05</Text>
+                              <Text>APR</Text>
+                          </View>
+                      </ImageBackground>
+                  </View>
+
+                  <View>
+                      <Text>Training Session</Text>
+                  </View>
+
+                  <View>
+                    <Image 
+                      source={require('./images/Group 1.png')}
+                    />
+                    <Text>+ 120 going</Text>
+                  </View>
+
+                  <View>
+                      <Ionicons name='map' size={24} color="grey"/>
+                      <Text>17 Billings Way, Oregun, Ikeja 101233, Lagos</Text>
+                  </View>
+
+                  <View>
+                      <Ionicons name='time' size={24} color="grey"/>
+                      <Text>12:00 PM</Text>
+                  </View>
+
+                  
+              <TouchableOpacity style={styles.imageBackgroundButton}>
+                  <Text style={styles.imageBackgroundButtonText}>Set Reminder</Text>
+                </TouchableOpacity>
+
+                  <View style={styles.trendingEventContainer}>
+                  <View>
+                      <ImageBackground
+                        source={require('./images/img_group.png')}
+                        style={{ width: '75%', height: 180, borderRadius: 20,  }}
+                      >
+                          <View>
+                              <Text>05</Text>
+                              <Text>APR</Text>
+                          </View>
+                      </ImageBackground>
+                  </View>
+
+                  <View>
+                      <Text>Training Session</Text>
+                  </View>
+
+                  <View>
+                    <Image 
+                      source={require('./images/Group 1.png')}
+                    />
+                    <Text>+ 120 going</Text>
+                  </View>
+
+                  <View>
+                      <Ionicons name='map' size={24} color="grey"/>
+                      <Text>17 Billings Way, Oregun, Ikeja 101233, Lagos</Text>
+                  </View>
+
+                  <View>
+                      <Ionicons name='time' size={24} color="grey"/>
+                      <Text>12:00 PM</Text>
+                  </View>
+
+                  
+              <TouchableOpacity style={styles.imageBackgroundButton}>
+                  <Text style={styles.imageBackgroundButtonText}>Set Reminder</Text>
+                </TouchableOpacity>
               </View>
-        </View>
+
+              </View>
+
+            </View>
         </ImageBackground>
 
       
@@ -157,5 +236,19 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#FFFFFF',
     textAlign: 'center'
+  },
+  trendingContainer:  {
+      paddingTop: 20,
+      paddingLeft: 10,
+  },
+  trendingText: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    paddingBottom: 20,
+  },
+  trendingEventContainer : {
+    flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'space-between',
   }
 })
