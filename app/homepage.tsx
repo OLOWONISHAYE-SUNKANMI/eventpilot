@@ -1,4 +1,3 @@
-import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { Dimensions, Image, ImageBackground, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
@@ -64,7 +63,7 @@ export default function homepage() {
                 </TouchableOpacity>
             </ImageBackground>
           </View>
-
+{/* 
             <View style={styles.trendingContainer}>
               <Text style={styles.trendingText}>Trending</Text>
               <View style={styles.trendingEventContainer}>
@@ -148,7 +147,7 @@ export default function homepage() {
 
               </View>
 
-            </View>
+            </View> */}
         </ImageBackground>
 
       
