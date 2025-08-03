@@ -36,6 +36,14 @@ export default function Layout() {
             title: "",
           }}
         />
+         <Stack.Screen
+          name="(tabs)"
+          options={{
+            headerShown: false,
+            headerBackTitle: "",
+            title: "",
+          }}
+        />
       </Stack>
     </>
   );

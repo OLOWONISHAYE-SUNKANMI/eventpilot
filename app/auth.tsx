@@ -29,7 +29,7 @@ export default function auth() {
     // Handle Apple login logic here
      try {
           await signInWithApple();
-          router.replace('/homepage');
+          router.replace('/(tabs)/homepage');
         } catch (err) {
           console.log('❌ Apple Sign-In error:', err);
         }

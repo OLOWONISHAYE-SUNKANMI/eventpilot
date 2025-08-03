@@ -31,7 +31,7 @@ export default function Login() {
     try {
       const user = await loginWithEmail(email, password);
       console.log('✅ Logged in:', user.email);
-      router.replace('/homepage'); // ✅ Navigate after login
+      router.replace('/(tabs)/homepage'); // ✅ Navigate after login
     } catch (err: any) {
       Alert.alert('Login Error', err.message);
     }
