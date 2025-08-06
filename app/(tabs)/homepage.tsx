@@ -61,7 +61,7 @@ export default function homepage() {
               </View>
 
               <TouchableOpacity style={styles.imageBackgroundButton}>
-                  <Text style={styles.imageBackgroundButtonText}>Set Reminder</Text>
+                  <Text style={styles.imageBackgroundButtonText}>See Details</Text>
                 </TouchableOpacity>
             </ImageBackground>
           </View>

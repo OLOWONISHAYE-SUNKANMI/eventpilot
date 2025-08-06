@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons'; // Make sure it's installed
 import { Tabs } from 'expo-router';
 import React from 'react';
+import { View } from 'react-native';
 
 export default function Layout() {
   return (
@@ -11,6 +12,7 @@ export default function Layout() {
          tabBarStyle: {
           backgroundColor: '#fff',
           height: 70,
+          paddingTop: 10,
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
         },
@@ -43,8 +45,23 @@ export default function Layout() {
         options={{
           headerShown: false,
           tabBarShowLabel: false, // Hide Tab Bar Label
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="add" size={size} color={color} />
+          tabBarStyle: { display: 'none' }, // hides the tab bar
+          tabBarIcon: () => (
+            <View
+              style={{ backgroundColor: '#2200FF', borderWidth: 3, alignItems: 'center', justifyContent: 'center',
+                borderColor: '#fff', width: 70, height: 70, borderRadius: 20, marginBottom: 25, marginLeft: 10,
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+
+                // Android Shadow
+                elevation: 5,
+                }}
+            >
+                <Ionicons name="add" size={30} color='white' />
+            </View>
+          
           ),
         }}
       />
