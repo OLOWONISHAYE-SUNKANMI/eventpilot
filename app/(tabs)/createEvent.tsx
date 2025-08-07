@@ -1,10 +1,17 @@
-import { Ionicons } from '@expo/vector-icons'
-import * as ImagePicker from 'expo-image-picker'
-import React, { useState } from 'react'
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import DateTimePickerModal from 'react-native-modal-datetime-picker'
+import { Ionicons } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
+import { router } from 'expo-router';
+import React, { useState } from 'react';
+import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 export default function CreateEvent() {
+
+
+   // ✅ Handle "Back" button
+  const handleBackButton = () => {
+    router.replace('/homepage');
+  };
 
    const [image, setImage] = useState<string | null>(null)
 
@@ -71,7 +78,7 @@ export default function CreateEvent() {
     <ScrollView>
       <View style={{ backgroundColor: '#D9D9D9'}}>
       <View style={styles.topMenuContainer}>
-        <TouchableOpacity style={styles.backIconButton}>
+        <TouchableOpacity style={styles.backIconButton} onPress={handleBackButton}>
           <Ionicons name="arrow-back" size={24} color="#fff" />
         </TouchableOpacity>
         <Text style={styles.eventHeaderText}>Create Event Reminder</Text>
@@ -91,10 +98,10 @@ export default function CreateEvent() {
           placeholderTextColor="#C4C4C4"
           value={selectedDate}
           editable={false}
-          style={styles.input}
+          style={styles.inputDate}
         />
         <TouchableOpacity onPress={showDatePicker}>
-          <Ionicons name="calendar-outline" size={24} color="#2200FF" />
+          <Ionicons name="calendar-outline" size={24} color="#2200FF" style={{margin: 10}} />
         </TouchableOpacity>
       </View>
       <DateTimePickerModal
@@ -110,17 +117,18 @@ export default function CreateEvent() {
         style={styles.input}
       />
 
-      <View>
+      <View style={styles.dateForm}>
         <TextInput
           placeholder="Start Time"
           placeholderTextColor="#C4C4C4"
           value={startTime}
           editable={false}
+          style={styles.inputStartTime}
         />
         <TouchableOpacity onPress={showStartTimePicker}>
-          <Ionicons name="time-outline" size={24} color="#2200FF" />
+          <Ionicons name="time-outline" size={24} color="#2200FF" style={{margin: 10}}/>
         </TouchableOpacity>
-      </View>
+    
       <DateTimePickerModal
         isVisible={isStartTimePickerVisible}
         mode="time"
@@ -128,15 +136,15 @@ export default function CreateEvent() {
         onCancel={hideStartTimePicker}
       />
 
-      <View>
         <TextInput
           placeholder="End Time"
           placeholderTextColor="#C4C4C4"
           value={endTime}
           editable={false}
+          style={styles.inputEndTime}
         />
         <TouchableOpacity onPress={showEndTimePicker}>
-          <Ionicons name="time-outline" size={24} color="#2200FF" />
+          <Ionicons name="time-outline" size={24} color="#2200FF" style={{margin: 10}}/>
         </TouchableOpacity>
       </View>
 
@@ -151,17 +159,18 @@ export default function CreateEvent() {
         placeholder="Description"
         placeholderTextColor="#C4C4C4"
         multiline
+        style={styles.inputDesctription}
       />
 
       <View>
-        <TouchableOpacity onPress={pickImage}>
-      <Text>Upload Photo</Text>
+        <TouchableOpacity style={styles.photoButton}onPress={pickImage}>
+      <Text style={styles.photoButtonText}>Upload Photo</Text>
       </TouchableOpacity>
       </View>
 
       <View>
-         <TouchableOpacity>
-            <Text>Set Reminder</Text>
+         <TouchableOpacity style={styles.setReminderButton}>
+            <Text style={styles.setReminderButtonText}>Set Reminder</Text>
          </TouchableOpacity>
       </View>
 
@@ -196,14 +205,76 @@ const styles = StyleSheet.create({
     },
     input: {
       borderWidth: 1,
+      borderColor: '#B3B3B3',
+      padding: 20,
+      borderRadius: 10,
+      marginBottom: 15,
+    },
+    dateForm: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+    inputDate: { 
+       borderWidth: 1,
         borderColor: '#B3B3B3',
         padding: 20,
         borderRadius: 10,
         marginBottom: 15,
+        width: '90%',
     },
-    dateForm: {
-      flexDirection: 'row',
-      justifyContent: 'space-between'
-    }
 
+    inputDesctription: {
+      borderWidth: 1,
+        borderColor: '#B3B3B3',
+        padding: 20,
+        borderRadius: 10,
+        marginBottom: 15,
+        width: '100%',
+        height: 200,
+        marginTop: 10,
+    },
+    photoButton: {
+      backgroundColor: '#2200FF',
+      padding: 10,
+      borderRadius: 10,
+      alignItems: 'center',
+      marginBottom: 20,
+      width: '50%',
+      height: 50,
+      justifyContent: 'center',
+    },
+    photoButtonText: {
+      color: '#FFFFFF',
+      fontSize: 12,
+    }, 
+    setReminderButton:{
+      backgroundColor: '#2200FF',
+      padding: 10,
+      borderRadius: 10,
+      alignItems: 'center',
+      marginBottom: 20,
+      width: '100%',
+      height: 50,
+      justifyContent: 'center',
+    },
+    setReminderButtonText: {
+      color: '#FFFFFF',
+      fontSize: 12,
+    },
+    inputStartTime: {
+      borderWidth: 1,
+      borderColor: '#B3B3B3',
+      padding: 20,
+      borderRadius: 10,
+      marginBottom: 15,
+      width: '40%',
+    },
+    inputEndTime: {
+      borderWidth: 1,
+      borderColor: '#B3B3B3',
+      padding: 20,
+      borderRadius: 10,
+      marginBottom: 15,
+      width: '40%',
+    }
 })

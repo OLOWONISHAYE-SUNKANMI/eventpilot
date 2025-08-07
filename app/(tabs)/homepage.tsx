@@ -1,9 +1,16 @@
+import { router } from 'expo-router';
 import React from 'react';
 import { Dimensions, Image, ImageBackground, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, } from 'react-native';
-
 const { width, height } = Dimensions.get('window');
 
 export default function homepage() {
+
+    // ✅ Handle "Back" button
+    const handleDetailsButton = () => {
+      router.replace('/seeDetails/seeDetails');
+    };
+  
+
   return (
    <ScrollView>
       <View>
@@ -61,7 +68,7 @@ export default function homepage() {
               </View>
 
               <TouchableOpacity style={styles.imageBackgroundButton}>
-                  <Text style={styles.imageBackgroundButtonText}>See Details</Text>
+                  <Text style={styles.imageBackgroundButtonText} onPress={handleDetailsButton}>See Details</Text>
                 </TouchableOpacity>
             </ImageBackground>
           </View>
