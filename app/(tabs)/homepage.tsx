@@ -1,9 +1,12 @@
 import { router } from 'expo-router';
 import React from 'react';
 import { Dimensions, Image, ImageBackground, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, } from 'react-native';
-const { width, height } = Dimensions.get('window');
 
+
+const { width, height } = Dimensions.get('window');
 export default function homepage() {
+
+  
 
     // ✅ Handle "Back" button
     const handleDetailsButton = () => {
@@ -67,8 +70,8 @@ export default function homepage() {
                 <Text style={styles.imageBackgroundText}>Annual General Meeting</Text> 
               </View>
 
-              <TouchableOpacity style={styles.imageBackgroundButton}>
-                  <Text style={styles.imageBackgroundButtonText} onPress={handleDetailsButton}>See Details</Text>
+              <TouchableOpacity style={styles.imageBackgroundButton} onPress={handleDetailsButton}>
+                  <Text style={styles.imageBackgroundButtonText} >See Details</Text>
                 </TouchableOpacity>
             </ImageBackground>
           </View>
