@@ -17,7 +17,7 @@ export default function seeDetails() {
               <Image 
                   style= {{ width: 25, height: 25}}
                   source={require('../images/backaArrow.png')}
-                            />
+              />
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.bookmarkButton}>
@@ -33,6 +33,19 @@ export default function seeDetails() {
          </View>
 
         </ImageBackground>
+
+        <View style={styles.inviteContainer}>
+        <Image
+            source={require('../images/mobile.png')}
+            style={{ marginTop: 20, marginRight: 10,}}
+          />
+          <Text style={{ marginRight: 130, color: '#2200FF', marginTop: 20,}}>+120 going</Text>
+          <View>
+            <TouchableOpacity style={styles.inviteButton}>
+              <Text style={{ color: '#FFFFFf'}}>Invite</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
 
            
         </View>
@@ -94,9 +107,28 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   bodyText: {
-    fontSize: 27,
+    fontSize: 25,
     fontWeight: 'bold',
     color: '#000000',
   },
+  inviteContainer:{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    margin: 20,
+    padding: 10,
+   },
+  inviteButton: {
+    marginTop: 20,
+    marginRight: 40,
+    width: 100,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#2200FF',
+    borderRadius: 10,
+  },
+
+
 
 })
