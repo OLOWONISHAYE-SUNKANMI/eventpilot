@@ -10,6 +10,8 @@ export default function seeDetails() {
       router.replace('/(tabs)/homepage');
     };
 
+    
+
   return (
 
  
@@ -21,7 +23,7 @@ export default function seeDetails() {
               style={styles.background}
           >
 
-          <View style={styles.menuContainer}>
+          <View style={styles.mainContainer}>
             <TouchableOpacity style={styles.backButton} onPress={handleBackButton}>
               <Image 
                   style= {{ width: 25, height: 25}}
@@ -162,7 +164,7 @@ const styles = StyleSheet.create({
     height: height * 0.4,
     resizeMode: 'stretch',
   },
-   menuContainer: {
+   mainContainer: {
         flex: 1,
         marginLeft: 10,
         marginRight: 10,

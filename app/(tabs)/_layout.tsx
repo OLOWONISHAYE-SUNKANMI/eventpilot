@@ -34,6 +34,7 @@ export default function Layout() {
         options={{
           headerShown: false,
           tabBarShowLabel: false, // Hide Tab Bar Label
+          tabBarStyle: { display: 'none' }, // hides the tab bar
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="calendar" size={size} color={color} />
           ),
