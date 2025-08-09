@@ -70,21 +70,27 @@ export default function calendar() {
           
             
             <View style={styles.eventItemDetails}>
-              <Text>Training Session</Text>
-              <Text>Work</Text>
-              <View>
+              <Text style={styles.eventItemHeader}>Training Session</Text>
+             <View style={styles.eventItemTypeContainer}>
+                 <Text style={styles.eventItemType}>Work</Text>
+             </View>
+              <View style={{ flexDirection: 'row', marginBottom: 3}}>
               <Image
                 source={require('../images/mobile.png')}
               />
-              <Text> + 120 going</Text>
+              <Text style={{ color: '#fff',}}>+ 120 going</Text>
               </View>
-              <View>
+              <View style={ { flexDirection: 'row', marginBottom: 10 }}>
                 <Image
                   source={require('../images/location.png')}
                 />
-                <Text>17 Billings Way, Oregun, Ikeja 101233, Lagos</Text>
+              <View>
+                <Text style={{ color: '#fff',  marginLeft: 10}}>17 Billings Way, Oregun,</Text>
+                <Text style={{ color: '#fff',  marginLeft: 10}}>Ikeja 101233, Lagos</Text>
+              </View>
                 </View>
             </View>
+
           </View>       
 
         </View>
@@ -96,19 +102,24 @@ export default function calendar() {
                style={styles.eventItemImage}
             />
             <View style={styles.eventItemDetails}>
-              <Text>Product Launch</Text>
-              <Text>Work</Text>
-              <View>
+              <Text style={styles.eventItemHeader}>Product Launch</Text>
+             <View style={styles.eventItemTypeContainer}>
+                 <Text style={styles.eventItemType}>Work</Text>
+             </View>
+              <View style={{ flexDirection: 'row', marginBottom: 3}}>
               <Image
                 source={require('../images/mobile.png')}
               />
-              <Text> + 120 going</Text>
+              <Text style={{ color: '#fff'}}> + 120 going</Text>
               </View>
-              <View>
+              <View style={ { flexDirection: 'row', marginBottom: 10 }}>
                 <Image
                   source={require('../images/location.png')}
                 />
-                <Text>17 Billings Way, Oregun, Ikeja 101233, Lagos</Text>
+                 <View>
+                    <Text style={{ color: '#fff',  marginLeft: 10}}>17 Billings Way, Oregun,</Text>
+                    <Text style={{ color: '#fff',  marginLeft: 10}}>Ikeja 101233, Lagos</Text>
+              </View>
                 </View>
             </View>
           </View>
@@ -166,26 +177,51 @@ const styles = StyleSheet.create({
     borderRadius: 20,
      marginLeft: 20,
      height: 150,
-     paddingLeft: 10,
     marginRight: 10,
   },
   eventItem: {
     flexDirection: 'row',
     marginBottom: 20,
     alignItems: 'center',
-    marginLeft: 10,
     marginRight: 10,
   },
   eventItemImage: {
+    marginBottom: 40,
     width: 170,
     height: 150,
     borderBottomLeftRadius: 20,
     borderTopLeftRadius: 20,
-   
   },
   eventItemDetails: {
-    margin: 10,
+    marginLeft: 10,
+    marginBottom: 20,
   },
+  eventItemHeader: { 
+    marginTop: 2,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 10,
+
+  },
+  eventItemTypeContainer: {
+    width: 50,
+     padding: 10,
+    borderWidth: 1,
+    borderColor: '#fff',
+    borderRadius: 20, 
+    marginBottom: 10,
+  },
+  eventItemType: {
+    fontSize: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#fff',
+  },
+
+
+
+
  
 
 })
