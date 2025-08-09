@@ -60,12 +60,16 @@ export default function calendar() {
           ) : null}
         </View>
 
-        <View>
-          <View>
-            <Image
+        <View style={styles.eventListContainer}>
+          <View style={styles.eventItem}>
+      
+              <Image
               source={require('../images/eventImageOne.png')}
+              style={styles.eventItemImage}
             />
-            <View>
+          
+            
+            <View style={styles.eventItemDetails}>
               <Text>Training Session</Text>
               <Text>Work</Text>
               <View>
@@ -81,13 +85,17 @@ export default function calendar() {
                 <Text>17 Billings Way, Oregun, Ikeja 101233, Lagos</Text>
                 </View>
             </View>
-          </View>
+          </View>       
 
-          <View>
+        </View>
+
+        <View style={styles.eventListContainer}>
+               <View style={styles.eventItem}>
             <Image
               source={require('../images/eventImageTwo.png')}
+               style={styles.eventItemImage}
             />
-            <View>
+            <View style={styles.eventItemDetails}>
               <Text>Product Launch</Text>
               <Text>Work</Text>
               <View>
@@ -104,7 +112,6 @@ export default function calendar() {
                 </View>
             </View>
           </View>
-          
         </View>
 
     </ScrollView>
@@ -152,4 +159,33 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
   },
+  eventListContainer: {
+    marginTop: 20,
+    flexDirection: 'column',
+    backgroundColor: '#2200FF',
+    borderRadius: 20,
+     marginLeft: 20,
+     height: 150,
+     paddingLeft: 10,
+    marginRight: 10,
+  },
+  eventItem: {
+    flexDirection: 'row',
+    marginBottom: 20,
+    alignItems: 'center',
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  eventItemImage: {
+    width: 170,
+    height: 150,
+    borderBottomLeftRadius: 20,
+    borderTopLeftRadius: 20,
+   
+  },
+  eventItemDetails: {
+    margin: 10,
+  },
+ 
+
 })
