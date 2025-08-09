@@ -72,6 +72,7 @@ export default function Layout() {
         options={{
           headerShown: false,
           tabBarShowLabel: false, // Hide Tab Bar Label
+          tabBarStyle: { display: 'none' }, // hides the tab bar
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="people-circle-outline" size={size} color={color} />
           ),
@@ -83,6 +84,7 @@ export default function Layout() {
         options={{
           headerShown: false,
           tabBarShowLabel: false, // Hide Tab Bar Label
+          tabBarStyle: { display: 'none' }, // hides the tab bar
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="settings" size={size} color={color} />
           ),
